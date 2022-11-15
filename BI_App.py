@@ -16,6 +16,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from datetime import date
 import base64
+import openpyxl
 
 
 # ##  Barra Lateral: 
