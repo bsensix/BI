@@ -398,6 +398,51 @@ if tipo_analise == 'Fertilidade do Solo':
     col2.dataframe(df2)
     col3.dataframe(df3)
     
+if tipo_analise == 'Produtividade'  
+    barra_lateral = st.sidebar.empty()
+    st.title('Relatório de Produtividade 🚜')
+    
+    uploaded_files = st.sidebar.file_uploader("Upload dos Dados ⬇️")
+    tabela = pd.read_excel(uploaded_files) 
+    
+    col1, col2 = st.columns(2)
+
+    #Selecionar Fazenda
+    filtro_fazenda = col1.selectbox('👨‍🌾 Selecione a Fazenda:',(tabela['Fazenda']))
+    tabela_fazenda = tabela['Fazenda'] == filtro_fazenda
+    tabela_fazenda = tabela[tabela_fazenda]
+
+    #Selecionar Cultura
+    filtro_cultura = col2.selectbox('🌾 Selecione a Cultura:',(tabela_fazenda['Cultura']))
+    tabela_cultura = tabela_fazenda['Cultura'] == filtro_cultura
+    tabela_cultura = tabela_fazenda[tabela_cultura]
+
+    col1, col2, col3 = st.columns(3)
+
+    #Soma Produtividade Total Kg
+    prod_total = round(tabela_cultura['Produtividade Total (Kg)'].sum(),2)
+    prod_total = round(prod_total/1000,2)
+    col1.metric(label="Produtividade Total (t):", value= prod_total) 
+
+    #Área Colhida
+    area_colhida = round(tabela_cultura['Área Trabalhada (ha)'].sum(),2)
+    col2.metric(label="Área Colhida (ha):", value= area_colhida) 
+
+    #Produtividade por ha
+    prod_media = round(prod_total/area_colhida,2)
+    col3.metric(label="Produtividade Média (t/ha):", value= prod_media) 
+
+    #Gráfico Produtividade
+    st.title('Produtividade por talhão 📶')
+    fig = px.bar(tabela_cultura, x="Data", y="Produtividade Média (Kg/ha)", color="Talhão", text_auto=True)
+    st.plotly_chart(fig) 
+
+    #Gráfico Velocidade
+    st.title('Velocidade Média 🚜')
+    fig2 = px.bar(tabela_cultura, x="Data", y="Velocidade Média (km/h)", color="Talhão", text_auto=True)
+    st.plotly_chart(fig2) 
+
+    
     
 
 
