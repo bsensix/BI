@@ -398,7 +398,7 @@ if tipo_analise == 'Fertilidade do Solo':
     col2.dataframe(df2)
     col3.dataframe(df3)
     
-if tipo_analise == 'Produtividade'  
+if tipo_analise == 'Produtividade':  
     barra_lateral = st.sidebar.empty()
     st.title('Relatório de Produtividade 🚜')
     
